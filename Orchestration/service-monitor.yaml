@@ -1,0 +1,22 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  labels:
+    k8s-app: platformseven
+  name: platformseven
+  namespace: openshift-monitoring
+spec:
+  endpoints:
+    - interval: 2m
+      port: prom
+      scrapeTimeout: 2m
+    - interval1: 30s
+      port: http1
+  namespaceSelector:
+    matchNames:
+    - platformtestingthree-dev-app
+    - platformtestingthree-devops-app
+    
+  selector:
+    matchLabels:
+      app: platformseven
