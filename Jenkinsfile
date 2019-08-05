@@ -74,44 +74,7 @@ node
        FAILED_STAGE=env.STAGE_NAME
        sh 'mvn clean compile'
    }
-   if(env.UNIT_TESTING == 'True')
-   {
-   	stage('Unit Testing')
-   	{
-        	
-        	FAILED_STAGE=env.STAGE_NAME
-        	sh 'mvn test'
-   	}
-   }
-   
-   if(env.CODE_QUALITY == 'True')
-   {
-   	stage('Code Quality Analysis')
-   	{
-       		FAILED_STAGE=env.STAGE_NAME
-       		sh 'mvn sonar:sonar -Dsonar.host.url="${SONAR_HOST_URL}"' 
-   	}
-   }
-   
-   if(env.CODE_COVERAGE == 'True')
-   {
-   	stage('Code Coverage')
-   	{
-		FAILED_STAGE=env.STAGE_NAME
-		sh 'mvn package'
-		jacoco(deltaBranchCoverage: "${DELTA_BRANCH_COVERAGE}", deltaClassCoverage: "${DELTA_CLASS_COVERAGE}", deltaComplexityCoverage: "${DELTA_COMPLEXITY_COVERAGE}", deltaInstructionCoverage: "${DELTA_INSTRUCTION_COVERAGE}", deltaLineCoverage: "${DELTA_LINE_COVERAGE}", deltaMethodCoverage: "${DELTA_METHOD_COVERAGE}")
-   	}
-   }
-   
-  if(env.SECURITY_TESTING == 'True')
-  {
-	stage('Security Testing')
-	{
-		FAILED_STAGE=env.STAGE_NAME
-		sh 'mvn findbugs:findbugs'
-	}	
-  }
-   
+ 
    stage('Build and Tag Image for Dev')
    {
    		script {
